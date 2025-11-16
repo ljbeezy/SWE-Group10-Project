@@ -52,7 +52,7 @@ loginForm.addEventListener('submit', async (event) => {
             const userRole = data.role || 'patient';
             const redirectPath = userRole === 'doctor' 
                 ? '../doctor-dashboard/doctor-dashboard.html' 
-                : '../dashboard/dashboard.html';
+                : '../patient-dashboard/dashboard.html';
             
             setTimeout(() => {
                 window.location.href = redirectPath;

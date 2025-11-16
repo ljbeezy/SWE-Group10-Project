@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HealthMe — AI Symptom Analysis</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg">
+  <main class="card auth-card">
+    <h1 class="brand">AI Symptom Analysis</h1>
+    <form id="aiForm" class="form">
+      <label>Symptoms<textarea id="symptoms" required></textarea></label>
+      <button type="submit" class="btn">Analyze</button>
+    </form>
+    <div id="analysisResult" class="msg"></div>
+  </main>
+
+
+  <script>
+    document.getElementById('aiForm').addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const symptoms = document.getElementById('symptoms').value.trim();
+      const result = document.getElementById('analysisResult');
+      
+      try {
+        const res = await fetch('/api/ai/analyze', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': 'Bearer ' + localStorage.getItem('token') 
+          },
+          body: JSON.stringify({ symptoms })
+        });
+        
+        const data = await res.json();
+        
+        if (res.ok) {
+          result.textContent = data.analysis;
+        } else {
+          result.textContent = data.message || 'Analysis failed';
+        }
+      } catch (e) { 
+        console.error('AI Analysis Error:', e);
+        result.textContent = 'Network error. Could not connect to the server.'; 
+      }
+    });
+  </script>
+</body>
+</html>

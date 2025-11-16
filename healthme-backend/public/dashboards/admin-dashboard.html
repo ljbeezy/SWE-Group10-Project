@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HealthMe - Doctor Dashboard</title>
     <link rel="stylesheet" href="../css/dashboard-style.css">
+    <script src="https://sdk.twilio.com/js/video/releases/2.26.0/twilio-video.min.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -27,6 +28,10 @@
             <nav class="sidebar-nav">
                 <a href="#patients-list" class="nav-link active" data-section="patients-list">Patients List</a>
                 <a href="#patient-details" class="nav-link" data-section="patient-details">Patient Details</a>
+                <a href="#appointments" class="nav-link" data-section="appointments">Appointments</a>
+                <a href="#messages" class="nav-link" data-section="messages">Messages</a>
+                <a href="#video-chat" class="nav-link" data-section="video-chat">Video Chat</a>
+                <a href="#ai-analysis" class="nav-link" data-section="ai-analysis">AI Analysis</a>
             </nav>
         </aside>
 
@@ -70,6 +75,91 @@
                         <p class="loading">No symptoms found</p>
                     </div>
                 </div>
+            </section>
+
+            <!-- Appointments Section -->
+            <section id="appointments" class="section">
+                <div class="section-header">
+                    <h2>Appointments</h2>
+                    <p>View all appointments scheduled by your patients</p>
+                </div>
+
+                <div class="section-header" style="margin-top: 20px;">
+                    <h3 style="font-size: 18px;">Booked Appointments</h3>
+                </div>
+                <div id="appointments-booked-container" class="appointments-list">
+                    <p class="loading">Loading booked appointments...</p>
+                </div>
+
+                <div class="section-header" style="margin-top: 30px;">
+                    <h3 style="font-size: 18px;">Cancelled Appointments</h3>
+                </div>
+                <div id="appointments-cancelled-container" class="appointments-list">
+                    <p class="loading">Loading cancelled appointments...</p>
+                </div>
+            </section>
+
+            <!-- Messages Section -->
+            <section id="messages" class="section">
+                <div class="section-header">
+                    <h2>Messages</h2>
+                    <p>View and reply to patient messages</p>
+                </div>
+                <div id="message-history-container" class="messages-list">
+                    <p class="loading">Loading message history...</p>
+                </div>
+                <div class="section-divider"></div>
+
+                <form id="message-form" class="form">
+                    <h3 class="form-title">Send a Message</h3>
+                    <div class="form-group">
+                        <label for="message-patient-select">Select Patient</label>
+                        <select id="message-patient-select" required>
+                            <option value="">Choose a patient...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-content">Message</label>
+                        <textarea id="message-content" placeholder="Write your message..." rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                <div id="message-message" class="message"></div>
+            </section>
+
+            <!-- Video Chat Section -->
+            <section id="video-chat" class="section">
+                <div class="section-header">
+                    <h2>Video Chat</h2>
+                    <p>Join video consultation with patient.</p>
+                </div>
+
+                <div id="video-room" class="video-container">
+                    <div id="local-video" class="video-participant"></div>
+                    <div id="remote-video" class="video-participant"></div>
+                </div>
+                
+                <div class="video-controls">
+                    <input type="text" id="video-room-name" placeholder="Enter Appointment ID" class="form-input">
+                    <button id="join-video-btn" class="btn btn-primary">Join Call</button>
+                    <button id="leave-video-btn" class="btn btn-secondary">Leave Call</button>
+                </div>
+            </section>
+
+            <!-- AI Analysis Section -->
+            <section id="ai-analysis" class="section">
+                <div class="section-header">
+                    <h2>AI Symptom Analysis</h2>
+                    <p>Analyze patient symptoms using AI assistance.</p>
+                </div>
+                <form id="ai-form-doctor" class="form">
+                    <div class="form-group">
+                        <label for="symptoms-input-doctor">Patient Symptoms</label>
+                        <textarea id="symptoms-input-doctor" required placeholder="Example: fever, cough, headache..." rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Analyze</button>
+                </form>
+                <div id="ai-result-doctor" class="message" style="margin-top: 20px;"></div>
             </section>
         </main>
     </div>

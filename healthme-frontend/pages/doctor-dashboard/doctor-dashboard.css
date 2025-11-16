@@ -554,3 +554,233 @@ body {
         font-size: 12px;
     }
 }
+
+.appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.appointment-item {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--success); /* Green accent for appointments */
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+
+.appointment-item:hover {
+    border-color: var(--accent);
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+.appointment-patient,
+.appointment-date,
+.appointment-reason,
+.appointment-status {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.appointment-patient strong,
+.appointment-date strong,
+.appointment-status strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    min-width: 70px;
+    display: inline-block;
+}
+
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--bg-primary); 
+}
+
+.message-item {
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.message-item.received {
+    background-color: var(--bg-tertiary);
+    align-self: flex-start;
+    border-left: 3px solid var(--accent);
+}
+
+.message-item.sent {
+    background-color: var(--bg-secondary); 
+    align-self: flex-end;
+    border-right: 3px solid var(--success);
+}
+
+.message-sender {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.message-item.sent .message-sender {
+    color: var(--success);
+}
+
+.message-item.received .message-sender {
+    color: var(--accent);
+}
+
+.message-content {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    white-space: pre-wrap; 
+}
+
+.message-date {
+    font-size: 12px;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+.message-item .btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+    margin-top: 10px;
+    align-self: flex-start;
+}
+
+/* Style the reply form */
+#reply-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#reply-form label {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+#reply-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+}
+
+#reply-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background-color: rgba(99, 102, 241, 0.1);
+}
+
+.message.success {
+    color: var(--success);
+}
+
+.message.error {
+    color: var(--error);
+}
+
+/* AI Analysis Section Styles */
+#ai-form-doctor .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#ai-form-doctor label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+#ai-form-doctor textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px 16px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+    transition: all 0.2s ease;
+}
+
+#ai-form-doctor textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background-color: rgba(99, 102, 241, 0.1);
+}
+
+#ai-result-doctor {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-primary); /* Slightly darker bg */
+    color: var(--text-secondary);
+    line-height: 1.6;
+    white-space: pre-wrap; /* This keeps the line breaks from the AI */
+    animation: fadeIn 0.3s ease;
+}
+
+#ai-result-doctor.success {
+    border-left: 3px solid var(--success);
+    color: var(--text-primary);
+}
+
+#ai-result-doctor.error {
+    border-left: 3px solid var(--error);
+    color: var(--error);
+}
+
+.video-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.video-participant {
+    flex: 1;
+    min-height: 300px;
+    background-color: #000;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #ccc);
+}
+.video-participant video {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+.video-controls {
+    display: flex;
+    gap: 10px;
+}
+.video-controls .form-input {
+    flex: 1;
+}

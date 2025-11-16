@@ -36,7 +36,7 @@
           
           const user = await (await fetch(API_PREFIX + '/auth/user', { headers: { 'Authorization': 'Bearer ' + window.getToken() } })).json();
           if(user.role === 'doctor') window.location = 'dashboards/admin-dashboard.html';
-          else window.location = 'dashboards/user-dashboard.html';
+          else window.location = 'patient-dashboard/dashboard.html';
         }catch(e){ msg.textContent = 'Network error'; }
       });
     }

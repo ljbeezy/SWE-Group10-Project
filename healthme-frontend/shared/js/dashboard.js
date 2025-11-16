@@ -159,41 +159,44 @@ async function populateDoctors() {
     const token = localStorage.getItem('hm_token');
     
     try {
-        
-        const userResponse = await fetch('http://localhost:3000/api/auth/user', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
+        const response = await fetch('http://localhost:3000/api/patient/doctors', {
+            headers: { 'Authorization': `Bearer ${token}` }
         });
 
-        if (userResponse.ok) {
-            const userData = await userResponse.json();
+        if (response.ok) {
+            const doctors = await response.json(); 
             
+            const selectElements = [doctorSelect, messageDoctorSelect];
             
-            if (userData.doctors && Array.isArray(userData.doctors)) {
-                const selectElements = [doctorSelect, messageDoctorSelect];
+            selectElements.forEach(select => {
+                if (select) select.innerHTML = '<option value="">Choose a doctor...</option>';
+            });
+
+            if (doctors && doctors.length > 0) {
                 selectElements.forEach(select => {
-                    userData.doctors.forEach(doctor => {
-                        const option = document.createElement('option');
-                        option.value = doctor._id || doctor;
-                        option.textContent = doctor.email || doctor;
-                        select.appendChild(option);
-                    });
+                    if (select) {
+                        doctors.forEach(doctor => {
+                            const option = document.createElement('option');
+                            option.value = doctor._id;
+                            option.textContent = doctor.email;
+                            select.appendChild(option);
+                        });
+                    }
                 });
             } else {
-                
-                console.warn('No doctors assigned to this patient');
-                [doctorSelect, messageDoctorSelect].forEach(select => {
-                    select.innerHTML += '<option value="">No doctors available</option>';
+                console.warn('No doctors found on the platform.');
+                selectElements.forEach(select => {
+                    if (select) select.innerHTML += '<option value="">No doctors available</option>';
                 });
             }
+        } else {
+            throw new Error('Failed to fetch doctors');
         }
     } catch (error) {
         console.error('Error fetching doctors:', error);
-        [doctorSelect, messageDoctorSelect].forEach(select => {
-            select.innerHTML += '<option value="">Unable to load doctors</option>';
+        const selectElements = [doctorSelect, messageDoctorSelect];
+        selectElements.forEach(select => {
+            if (select) select.innerHTML += '<option value="">Unable to load doctors</option>';
         });
     }
 }

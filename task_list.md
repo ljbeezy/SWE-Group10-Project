@@ -1,7 +1,12 @@
 # To-Do List
-AI Implementation
+Misc Tasks
 
 ## In Progress
 
-
 ## Done
+Login/Registration
+Symptom Logging
+Front End GUI
+Setting Appointments
+Messaging Doctors / 
+AI Implementation / 
