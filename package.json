@@ -1,0 +1,14 @@
+{
+  "name": "healthme",
+  "version": "1.0.0",
+  "description": "HealthMe - Healthcare Platform",
+  "main": "healthme-backend/index.js",
+  "scripts": {
+    "start": "cd healthme-backend && node index.js",
+    "dev": "cd healthme-backend && node index.js",
+    "build": "echo 'Building frontend...' && cp -r healthme-frontend/* healthme-backend/public/ || true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
