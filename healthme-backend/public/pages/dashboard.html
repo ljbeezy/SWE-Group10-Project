@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HealthMe — Patient Dashboard</title>
+  <link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">HealthMe</div>
+        <div id="user-email" class="user-email">Loading...</div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active" data-section="log-symptoms">Log Symptoms</a>
+        <a href="#" class="nav-link" data-section="symptom-history">Symptom History</a>
+        <a href="#" class="nav-link" data-section="book-appointment">Book Appointment</a>
+        <a href="#" class="nav-link" data-section="send-message">Send Message</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="logout-button" class="btn-danger">Logout</button>
+      </div>
+    </aside>
+    <main class="main-content">
+      <!-- Log Symptoms Section -->
+      <section id="log-symptoms" class="section active">
+        <h2>Log New Symptoms</h2>
+        <form id="symptom-form" class="form-card">
+          <label for="symptoms-input">Enter symptoms (comma-separated)</label>
+          <textarea id="symptoms-input" placeholder="e.g., Headache, Fever, Cough" required></textarea>
+          <button type="submit" class="btn">Log Symptoms</button>
+          <div id="symptom-message" class="message"></div>
+        </form>
+      </section>
+
+      <!-- Symptom History Section -->
+      <section id="symptom-history" class="section">
+        <h2>Symptom History</h2>
+        <div class="toolbar">
+            <button id="analyze-history-btn" class="btn">Analyze History</button>
+        </div>
+        <div id="analysis-history-result" class="message" style="display:none;"></div>
+        <div id="symptom-history-container" class="history-list">
+          <p class="loading">Loading history...</p>
+        </div>
+      </section>
+
+      <!-- Book Appointment Section -->
+      <section id="book-appointment" class="section">
+        <h2>Book an Appointment</h2>
+        <form id="appointment-form" class="form-card">
+          <label for="doctor-select">Choose a Doctor</label>
+          <select id="doctor-select" required></select>
+          <label for="appointment-date">Select Date</label>
+          <input type="date" id="appointment-date" required>
+          <label for="appointment-reason">Reason for Visit</label>
+          <textarea id="appointment-reason" required></textarea>
+          <button type="submit" class="btn">Schedule</button>
+          <div id="appointment-message" class="message"></div>
+        </form>
+      </section>
+
+      <!-- Send Message Section -->
+      <section id="send-message" class="section">
+        <h2>Send a Message to Your Doctor</h2>
+        <form id="message-form" class="form-card">
+          <label for="message-doctor-select">Choose a Doctor</label>
+          <select id="message-doctor-select" required></select>
+          <label for="message-content">Your Message</label>
+          <textarea id="message-content" required></textarea>
+          <button type="submit" class="btn">Send</button>
+          <div id="message-message" class="message"></div>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthMe - Doctor Dashboard</title>
+    <link rel="stylesheet" href="doctor-dashboard.css">
+    <script src="https://sdk.twilio.com/js/video/releases/2.26.0/twilio-video.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <h1>HealthMe</h1>
+                <span class="role-badge">Doctor</span>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <span id="user-email"></span>
+                </div>
+                <button id="logout-button" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#patients-list" class="nav-link active" data-section="patients-list">Patients List</a>
+                <a href="#patient-details" class="nav-link" data-section="patient-details">Patient Details</a>
+                <a href="#appointments" class="nav-link" data-section="appointments">Appointments</a>
+                <a href="#messages" class="nav-link" data-section="messages">Messages</a>
+                <a href="#ai-analysis" class="nav-link" data-section="ai-analysis">AI Analysis</a>
+                <a href="#video-chat" class="nav-link" data-section="video-chat">Video Chat</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <!-- Patients List Section -->
+            <section id="patients-list" class="section active">
+                <div class="section-header">
+                    <h2>Your Patients</h2>
+                    <p>View and manage your patient list</p>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="search-box">
+                    <input type="text" id="search-patients" placeholder="Search patients by email..." class="search-input">
+                </div>
+
+                <div id="patients-container" class="patients-list">
+                    <p class="loading">Loading patients...</p>
+                </div>
+            </section>
+
+            <!-- Patient Details Section -->
+            <section id="patient-details" class="section">
+                <div class="section-header">
+                    <h2>Patient Details</h2>
+                    <p>View detailed information about the selected patient</p>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="details-container">
+                    <div id="patient-info-container" class="patient-info">
+                        <p class="loading">Select a patient from the list to view details</p>
+                    </div>
+                </div>
+
+                <div id="patient-symptoms-container" class="symptoms-section">
+                    <h3>Symptom History</h3>
+                    <div id="patient-symptoms" class="symptoms-list">
+                        <p class="loading">No symptoms found</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="appointments" class="section">
+                <div class="section-header">
+                    <h2>Upcoming Appointments</h2>
+                    <p>Here is a list of your scheduled appointments.</p>
+                </div>
+                <div class="section-divider"></div>
+                <div id="appointments-container" class="appointments-list">
+                    <p class="loading">Loading appointments...</p>
+                </div>
+            </section>
+
+            <section id="messages" class="section">
+                <div class="section-header">
+                    <h2>Patient Messages</h2>
+                    <p>View and respond to messages from your patients.</p>
+                </div>
+                <div class="section-divider"></div>
+
+                <div id="messages-container" class="messages-list">
+                    <p class="loading">Loading messages...</p>
+                </div>
+
+                <form id="reply-form" class="form" style="margin-top: 30px;">
+                    <h3>Reply to Message</h3>
+                    <input type="hidden" id="reply-patient-id">
+                    <div class="form-group">
+                        <label>Replying to: <span id="reply-patient-email" style="color: var(--accent); font-weight: 600;">(Select a message to reply)</span></label>
+                        <textarea id="reply-content" rows="4" placeholder="Write your reply..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Reply</button>
+                    <div id="reply-message" class="message"></div>
+                </form>
+            </section>
+
+            <section id="ai-analysis" class="section">
+                <div class="section-header">
+                    <h2>AI Symptom Analysis</h2>
+                    <p>Use the tool below to analyze a set of symptoms. This can help guide your diagnostic process.</p>
+                </div>
+                <div class="section-divider"></div>
+                <form id="ai-form-doctor" class="form">
+                    <div class="form-group">
+                        <label for="symptoms-input-doctor">Symptoms</label>
+                        <textarea id="symptoms-input-doctor" required placeholder="Enter patient symptoms... (e.g., fever, cough, headache)" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Analyze</button>
+                </form>
+                <div id="ai-result-doctor" class="message" style="margin-top: 20px;"></div>
+            </section>
+
+            <section id="video-chat" class="section">
+                <div class="section-header">
+                    <h2>Video Chat</h2>
+                    <p>Join your scheduled video appointment.</p>
+                </div>
+
+                <div id="video-room-doctor" class="video-container">
+                    <div id="local-video-doctor" class="video-participant"></div>
+                    <div id="remote-video-doctor" class="video-participant"></div>
+                </div>
+                
+                <div class="video-controls">
+                    <input type="text" id="video-room-name-doctor" placeholder="Enter Appointment ID" class="form-input">
+                    <button id="join-video-btn-doctor" class="btn btn-primary">Join Call</button>
+                    <button id="leave-video-btn-doctor" class="btn btn-secondary">Leave Call</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="doctor-dashboard.js"></script>
+</body>
+</html>

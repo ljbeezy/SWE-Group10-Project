@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HealthMe — Doctor Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">HealthMe - Doctor</div>
+    <div class="actions">
+      <button id="logoutBtn" class="btn ghost">Sign out</button>
+    </div>
+  </header>
+  <main class="container">
+    <h2>Patients</h2>
+    <div id="patientsArea">Loading patients...</div>
+  </main>
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.loadCurrentUser().then(user => {
+        if (!user || user.role !== 'doctor') {
+          window.location = '../index.html';
+          return;
+        }
+        fetch('/api/doctor/patients', { headers: { 'Authorization': 'Bearer ' + window.getToken() } })
+          .then(r => r.json())
+          .then(data => {
+            const area = document.getElementById('patientsArea');
+            if (!data || data.length === 0) area.textContent = 'No patients found';
+            else {
+              const ul = document.createElement('ul');
+              data.forEach(p => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${p.name || p.email}</strong> — ${p._id} <button class="btn ghost" onclick="viewPatient('${p._id}')">View</button>`;
+                ul.appendChild(li);
+              });
+              area.innerHTML = '';
+              area.appendChild(ul);
+            }
+          }).catch(()=>{});
+      });
+    });
+    function viewPatient(id){ alert('Open patient view: '+id); }
+  </script>
+</body>
+</html>

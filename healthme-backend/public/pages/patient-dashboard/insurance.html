@@ -1,0 +1,84 @@
+<!-- Add as a new file or integrate into dashboard.html as a section -->
+
+<section id="insurance" class="section">
+    <div class="section-header">
+        <h2>Insurance Policy</h2>
+        <p>Manage your insurance details</p>
+    </div>
+    <form id="insurance-form" class="form">
+        <div class="form-group">
+            <label for="policy-number">Policy Number</label>
+            <input type="text" id="policy-number" required>
+        </div>
+        <div class="form-group">
+            <label for="provider">Provider</label>
+            <input type="text" id="provider" required>
+        </div>
+        <div class="form-group">
+            <label for="coverage">Coverage Details</label>
+            <textarea id="coverage" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Insurance</button>
+    </form>
+    <div id="insurance-list" class="history-container">
+        <p class="loading">Loading insurance...</p>
+    </div>
+    <div id="insurance-message" class="message"></div>
+</section>
+
+<script>
+    // Add to dashboard.js
+    const insuranceForm = document.getElementById('insurance-form');
+    const insuranceList = document.getElementById('insurance-list');
+    const insuranceMessage = document.getElementById('insurance-message');
+
+    insuranceForm.addEventListener('submit', handleInsuranceSubmit);
+
+    async function handleInsuranceSubmit(e) {
+        e.preventDefault();
+        const token = localStorage.getItem('hm_token');
+        const policyNumber = document.getElementById('policy-number').value;
+        const provider = document.getElementById('provider').value;
+        const coverageDetails = document.getElementById('coverage').value;
+
+        try {
+            const res = await fetch('http://localhost:3000/api/insurance/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ policyNumber, provider, coverageDetails })
+            });
+            if (res.ok) {
+                showMessage(insuranceMessage, 'Insurance added!', 'success');
+                insuranceForm.reset();
+                fetchInsurance();
+            } else {
+                showMessage(insuranceMessage, 'Failed to add', 'error');
+            }
+        } catch (e) {
+            showMessage(insuranceMessage, 'Network error', 'error');
+        }
+    }
+
+    async function fetchInsurance() {
+        const token = localStorage.getItem('hm_token');
+        try {
+            const res = await fetch('http://localhost:3000/api/insurance', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.ok) {
+                const insurance = await res.json();
+                insuranceList.innerHTML = insurance.map(ins => `
+                    <div class="history-item">
+                        <div>Policy: ${ins.policyNumber}</div>
+                        <div>Provider: ${ins.provider}</div>
+                        <div>Details: ${ins.coverageDetails || 'N/A'}</div>
+                    </div>
+                `).join('') || '<p class="loading">No insurance</p>';
+            } else {
+                insuranceList.innerHTML = '<p class="loading error">Error loading</p>';
+            }
+        } catch (e) {
+            insuranceList.innerHTML = '<p class="loading error">Network error</p>';
+        }
+    }
+</script>
