@@ -29,14 +29,14 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/video', videoRoutes);
 
 
-const __dirnameResolved = path.resolve();
+const __dirnameResolved = path.resolve(__dirname);
 
 
 app.use(express.static(path.join(__dirnameResolved, 'public')));
 
 
 app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirnameResolved, 'public', 'index.html'));
+  res.sendFile(path.join(__dirnameResolved, 'index.html'));
 });
 
 

@@ -4,7 +4,7 @@
     "builder": "nixpacks"
   },
   "deploy": {
-    "startCommand": "cd healthme-backend && node index.js",
+    "startCommand": "node healthme-backend/index.js",
     "restartPolicyType": "on_failure",
     "restartPolicyMaxRetries": 5
   }

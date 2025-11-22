@@ -1,1 +1,1 @@
-web: cd healthme-backend && node index.js
+web: node healthme-backend/index.js

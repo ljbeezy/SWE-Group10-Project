@@ -1,14 +1,24 @@
 {
-  "name": "healthme",
+  "name": "healthme-backend",
   "version": "1.0.0",
-  "description": "HealthMe - Healthcare Platform",
-  "main": "healthme-backend/index.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "cd healthme-backend && node index.js",
-    "dev": "cd healthme-backend && node index.js",
-    "build": "echo 'Building frontend...' && cp -r healthme-frontend/* healthme-backend/public/ || true"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-validator": "^7.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.2",
+    "openai": "^6.3.0",
+    "twilio": "^5.10.4"
+  }
 }
